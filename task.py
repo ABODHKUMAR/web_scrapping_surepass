@@ -31,7 +31,8 @@ def get_captcha_image(session, response):
         return None
 
 def main():
-    
+    driving_license_no = input("Enter Your Driving License No :")
+    date_of_birth = input("Enter Your Date Of Birth format: DD-MM-YYYY :")
     with requests.Session() as s:
         # Make initial GET request
         r1 = s.get('https://parivahan.gov.in/rcdlstatus/?pur_cd=101')
@@ -78,8 +79,8 @@ def main():
             "javax.faces.partial.render": "form_rcdl:pnl_show form_rcdl:pg_show form_rcdl:rcdl_pnl",
             "form_rcdl:j_idt41": "form_rcdl:j_idt41",
             "form_rcdl": "form_rcdl",
-            "form_rcdl:tf_dlNO": "DL-0420110149646",
-            "form_rcdl:tf_dob_input": "09-02-1976",
+            "form_rcdl:tf_dlNO": driving_license_no,
+            "form_rcdl:tf_dob_input": date_of_birth,
             'form_rcdl:j_idt31:CaptchaID': captcha,  # Changed captcha ID
             'javax.faces.ViewState': view_state
         }
@@ -99,7 +100,7 @@ def main():
         td_tags = soup.find_all('td')
         print("Length",len(td_tags))
         if len(td_tags) == 0:
-            print("Getting Dificultity in Fettching Data Try Again")
+            print("Getting Dificultity in Fettching Data Try Again other Data")
             return
         
         print(td_tags)
